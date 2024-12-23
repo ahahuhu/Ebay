@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "nim-web-sdk-ng": "^10.2.700"
+  }
+}

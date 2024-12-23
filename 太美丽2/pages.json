@@ -1,0 +1,185 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "商城首页"
+			}
+		},
+		{
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "商品分类"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/my/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/my/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		},
+		{
+			"path": "pages/sale/sale",
+			"style": {
+				"navigationBarTitleText": "卖二手"
+			}
+		},
+		{
+			"path": "pages/my/userinfo",
+			"style": {
+				"navigationBarTitleText": "修改信息"
+			}
+		},
+		{
+			"path": "pages/message/chattingbox",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/sale/post",
+			"style": {
+				"navigationBarTitleText": "发闲置"
+			}
+		},
+		{
+			"path": "pages/sale/want",
+			"style": {
+				"navigationBarTitleText": "收闲置"
+			}
+		},
+		{
+			"path": "pages/sale/want_info",
+			"style": {
+				"navigationBarTitleText": "求购信息大厅"
+			}
+		},
+		{
+			"path": "pages/home/commodity",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/home/search",
+			"style" : 
+			{
+				"navigationBarTitleText" : "搜索"
+			}
+		},
+		{
+			"path" : "pages/my/store",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/my/controll",
+			"style" : 
+			{
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path" : "pages/sale/allwant",
+			"style" : 
+			{
+				"navigationBarTitleText" : "求购信息大厅"
+			}
+		},
+		{
+			"path" : "pages/home/bookstore",
+			"style" : 
+			{
+				"navigationBarTitleText" : "书籍漂流屋"
+			}
+		},
+		{
+			"path" : "pages/my/update_com_info",
+			"style" : 
+			{
+				"navigationBarTitleText" : "修改发布信息"
+			}
+		},
+		{
+			"path" : "pages/my/update_want_info",
+			"style" : 
+			{
+				"navigationBarTitleText" : "修改需求信息"
+			}
+		},
+		{
+			"path" : "pages/sale/price_recom",
+			"style" : 
+			{
+				"navigationBarTitleText" : "商品价格推荐"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/home/home",
+			"iconPath": "static/images/shop(unselected).png",
+			"selectedIconPath": "static/images/shop(selected).png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/category/category",
+			"iconPath": "static/images/category(unselected).png",
+			"selectedIconPath": "static/images/category(selected).png",
+			"text": "分类"
+		}, {
+			"pagePath": "pages/sale/sale",
+			"iconPath": "static/images/sale(unselected).png",
+			"selectedIconPath": "static/images/sale(selected).png",
+			"text": "卖二手"
+		}, {
+			"pagePath": "pages/message/message",
+			"iconPath": "static/images/message(unselected).png",
+			"selectedIconPath": "static/images/message(selected).png",
+			"text": "消息"
+		}, {
+			"pagePath": "pages/my/my",
+			"iconPath": "static/images/my(unselected).png",
+			"selectedIconPath": "static/images/my(selected).png",
+			"text": "我的"
+		}]
+	}
+
+}

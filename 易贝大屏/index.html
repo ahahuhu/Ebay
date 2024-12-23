@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>易贝数据展示大屏</title>
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="js/jquery.min.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="js/bootstrap.min.js"></script>
+		<link href="css/index.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header>易贝数据展示大屏</header>
+		<div class="container m-20">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="box1">
+						<div class="title">闲置商品各种类占比排序</div>
+						<div class="box1_con" id="box1"></div>
+					</div>
+					<div class="box2 m-20">
+						<div class="title">今日各类商品闲置和求购数</div>
+						<div class="box2_con" id="box2"></div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="box3">
+						<div class="title">数据概览</div>
+						<div class="box3_con">
+							<!-- <div class="box3_con_left" id="box3_left"></div> -->
+							<div class="box3_con_right">
+								<div class="box3_con_right_top">
+									<div class="row">
+										<div class="col-lg-4 data_bg">
+											<p id="userCount"></p><small>用户总数</small>
+										</div>
+										<div class="col-lg-4 data_bg">
+											<p id="postCount"></p><small>发布总数</small>
+										</div>
+										<div class="col-lg-4 data_bg">
+											<p id="wantCount"></p><small>求购总数</small>
+										</div>
+										<div class="col-lg-4 data_bg">
+											<p id="bottleCount"></p><small>漂流书籍数量</small>
+										</div>
+									</div>
+								</div>
+								<div class="box3_con_right_bot" id="box3_right"></div>
+							</div>
+						</div>
+					</div>
+					<div class="box4 m-20">
+						<div class="title">各类商品总计和新增</div>
+						<div class="box4_con" id="box4"></div>
+					</div>
+				</div>
+				<div class="col-lg-3 box5">
+					<div class="title">近十天新增闲置和求购商品情况</div>
+					<div class="box5_con">
+						<div class="box5_con_top" id="box5"></div>
+						<div class="title m-20">最新发布商品</div>
+						<div class="box5_con_bot">
+							<ul id="productList"></ul>
+							<div class="title m-20">最新求购商品</div>
+							<div class="box5_con_bot">
+								<ul id="wantedList"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/echarts.min.js"></script>
+		<script type="text/javascript" src="js/box1.js"></script>
+		<script type="text/javascript" src="js/box2.js"></script>
+		<script type="text/javascript" src="js/box3_left.js"></script>
+		<script type="text/javascript" src="js/box3_right.js"></script>
+		<script type="text/javascript" src="js/box4.js"></script>
+		<script type="text/javascript" src="js/box5.js"></script>
+		<script>
+			// 全局变量，用于存储拉取的数据
+			var productlist = null;
+			var wantedlist = null;
+			var users;
+			var posts;
+			var wants;
+			var bottle;
+
+			// 用于拉取服务器三条最新的商品发布信息
+			function fetchPostData() {
+				return fetch('http://localhost:8016/BigScreen/LatestXianZhi')
+					.then(response => response.json())
+					.then(data => {
+						console.log('Product Data:', data.result);
+						productlist = data.result;
+						updateProductList(); // 更新列表
+					})
+					.catch(error => {
+						console.error('请求失败', error);
+					});
+			}
+
+			// 用于拉取服务器三条最新的商品求购信息
+			function fetchSeekData() {
+				return fetch('http://localhost:8016/BigScreen/LatestXuQiu')
+					.then(response => response.json())
+					.then(data => {
+						console.log('Wanted Data:', data.result);
+						wantedlist = data.result;
+						updateWantedList(); // 更新列表
+					})
+					.catch(error => {
+						console.error('请求失败', error);
+					});
+			}
+			
+			// 用于拉取服务器的总数据
+			function fetchTotalData() {
+				return fetch('http://localhost:8016/BigScreen/AllData')
+					.then(response => response.json())
+					.then(data => {
+						console.log(data.result);
+						users = data.result[0];
+						posts = data.result[1];
+						wants = data.result[2];
+						updateTotalData(users, posts, wants); // 更新DOM
+					})
+					.catch(error => {
+						console.error('请求失败', error);
+					});
+			}
+			
+			// 用于拉取漂流瓶数据
+			function fetchBottleData() {
+				return fetch('http://localhost:8016/BigScreen/BookData')
+					.then(response => response.json())
+					.then(data => {
+						console.log(data.result);
+						bottle=data.result;
+						updateBottleData(bottle)// 更新DOM
+					})
+					.catch(error => {
+						console.error('请求失败', error);
+					});
+			}
+
+			function updateProductList() {
+				console.log('Updating Product List:', productlist);
+				var productListContainer = document.getElementById('productList');
+				productListContainer.innerHTML = ''; // 清空之前的内容
+				for (var i = 0; i < productlist.length; i++) {
+					var li = document.createElement('li');
+					li.textContent = productlist[i];
+					productListContainer.appendChild(li);
+				}
+			}
+
+			function updateWantedList() {
+				console.log('Updating Wanted List:', wantedlist);
+				var wantedListContainer = document.getElementById('wantedList');
+				wantedListContainer.innerHTML = ''; // 清空之前的内容
+				for (var i = 0; i < wantedlist.length; i++) {
+					var li = document.createElement('li');
+					li.textContent = wantedlist[i];
+					wantedListContainer.appendChild(li);
+				}
+			}
+
+			// 更新用户、发布、求购数据的DOM元素
+			function updateTotalData(users, posts, wants) {
+				document.getElementById('userCount').textContent = `${users} 人`;
+				document.getElementById('postCount').textContent = `${posts} 个`;
+				document.getElementById('wantCount').textContent = `${wants} 个`;
+			}
+			
+			//更新漂流瓶数量的DOM元素
+			function updateBottleData(bottle) {
+				document.getElementById('bottleCount').textContent = `${bottle} 本`;
+			}
+
+
+			document.addEventListener('DOMContentLoaded', function() {
+				fetchPostData();
+				fetchSeekData();
+				fetchTotalData(); // 初始加载时更新总数数据
+				fetchBottleData();
+			});
+
+			// 周期定时器,用于实时更新大屏数据
+			timer = setInterval(() => {
+				// 调用异步函数并在完成后更新列表和总数数据
+				Promise.all([fetchPostData(), fetchSeekData(), fetchTotalData(),fetchBottleData()]).then(() => {
+					
+				});
+			}, 3000);
+		</script>
+	</body>
+</html>
